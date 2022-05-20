@@ -7,7 +7,8 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { join } from 'path';
 
 //Module
-import { QuestionModule } from "./questions/question.module";
+import { UserModule } from "./user/user.module";
+import { QuestionModule } from "./question/question.module";
 //Custom Scalar
 import { DateScalar } from "./date.scaler";
 
@@ -19,10 +20,12 @@ import { DateScalar } from "./date.scaler";
       installSubscriptionHandlers: true,
       playground: false,
       path: "/nestjs",
+      context: ({ req }) => ({ headers: req.headers }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_LOCAL_URL),
+    UserModule,
     QuestionModule
   ],
   controllers: [],

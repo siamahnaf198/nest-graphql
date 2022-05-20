@@ -1,15 +1,13 @@
-//Packages
 import { Field, Float, InputType } from "@nestjs/graphql";
 
-//Input Types
 @InputType()
 export class CreateQuestionInput {
-    @Field()
+    @Field(() => String, { nullable: false })
     content: string;
 
-    @Field({ nullable: true })
-    answerString: string;
-
     @Field(() => Float, { nullable: true })
-    answerNumber: number;
+    answerNumber: number
+
+    @Field(() => String, { nullable: false })
+    answerString: string;
 }

@@ -2,17 +2,21 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type QuestionEntity {
-  """Mongoose Id Type"""
-  _id: ID!
-  content: String!
-  answerString: String
-  answerNumber: Float
-  createdAt: Date!
-  updatedAt: Date!
+type CreateUserEntity {
+  success: Boolean!
+  message: String!
+  token: String!
+  expire: Date!
 }
 
 scalar Date
+
+type GetUser {
+  name: String!
+  email: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
 
 type CreateQuestionEntity {
   success: Boolean!
@@ -20,19 +24,28 @@ type CreateQuestionEntity {
 }
 
 type Query {
-  getQuestion: [QuestionEntity!]!
+  getUser: GetUser!
 }
 
 type Mutation {
-  createQuestion(createQuestionInput: CreateQuestionInput!): CreateQuestionEntity!
+  addUser(createUserInput: CreateUserInput!): CreateUserEntity!
+  loginUser(loginUserInput: LoginUserInput!): CreateUserEntity!
+  addQuestion(createQuestionInput: CreateQuestionInput!): CreateQuestionEntity!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
 
 input CreateQuestionInput {
   content: String!
-  answerString: String
   answerNumber: Float
-}
-
-type Subscription {
-  questionAdded: String!
+  answerString: String!
 }
