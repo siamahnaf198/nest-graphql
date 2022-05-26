@@ -4,9 +4,14 @@ import { UseGuards } from "@nestjs/common";
 //Service
 import { QuestionService } from "./question.service";
 //Guardss
-import { AuthGaurd } from "src/helpers/auth.guard";
+import { AuthGaurd } from "src/auth/auth.guard";
+import { RolesGuard } from "src/auth/role.guard";
+import { Roles } from "src/auth/decorator/auth.decorator";
+//Guard Enum
+import { Role } from "src/auth/enum/auth.enum";
 //Entity
 import { CreateQuestionEntity } from "./entities/create-question.entity";
+import { UserToken } from "src/auth/entities/authGuard.entity";
 //Dto
 import { CreateQuestionInput } from "./dto/create-question.input";
 
@@ -17,11 +22,13 @@ export class QuestionResolver {
 
     //Create Question Resolver
     @Mutation(() => CreateQuestionEntity, { name: "addQuestion" })
-    @UseGuards(new AuthGaurd())
+    @Roles(Role.ADMIN, Role.USER)
+    @UseGuards(AuthGaurd, RolesGuard)
     createQuestion(
         @Args('createQuestionInput')
-        createQuestionInput: CreateQuestionInput
+        createQuestionInput: CreateQuestionInput,
+        @Context('user') user: UserToken
     ) {
-        return this.questionService.create(createQuestionInput)
+        return this.questionService.create(createQuestionInput, user.info)
     }
 }

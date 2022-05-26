@@ -7,6 +7,7 @@ import { QuestionService } from "./question.service";
 
 //Schema
 import { Question, QuestionSchema } from "./model/question.schema";
+import { User, UserSchema } from "src/user/model/user.schema";
 
 
 @Module({
@@ -14,6 +15,10 @@ import { Question, QuestionSchema } from "./model/question.schema";
         MongooseModule.forFeature([{
             name: Question.name,
             schema: QuestionSchema
+        }]),
+        MongooseModule.forFeature([{
+            name: User.name,
+            schema: UserSchema
         }])
     ],
     providers: [QuestionResolver, QuestionService]

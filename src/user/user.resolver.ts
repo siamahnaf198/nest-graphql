@@ -2,7 +2,7 @@ import { Resolver, Args, Mutation, Query, Context } from "@nestjs/graphql";
 import { UseGuards } from "@nestjs/common";
 
 //Gaurds
-import { AuthGaurd } from "src/helpers/auth.guard";
+import { AuthGaurd } from "src/auth/auth.guard";
 //Services
 import { UserService } from "./user.service";
 //Dto
@@ -11,7 +11,7 @@ import { LoginUserInput } from "./dto/login-user.input";
 //Entity
 import { CreateUserEntity } from "./entities/create-user.entity";
 import { GetUser } from "./entities/get-user.entity";
-import { UserToken } from "src/helpers/Entities/authGuard.entity";
+import { UserToken } from "src/auth/entities/authGuard.entity";
 
 @Resolver()
 export class UserResolver {
