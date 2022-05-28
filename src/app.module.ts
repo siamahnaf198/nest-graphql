@@ -24,7 +24,7 @@ import { DateScalar } from "./date.scaler";
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     ConfigModule.forRoot(),
-    MongooseModule.forRoot("mongodb+srv://siamahnaf198:s7i2A2m875h@cluster0.pnj9t.mongodb.net/?retryWrites=true&w=majority"),
+    MongooseModule.forRoot(process.env.MONGODB_LOCAL),
     UserModule,
     QuestionModule
   ],
